@@ -1,0 +1,52 @@
+@use 'variables';
+@use 'mixins';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.fontSize-title {
+  font-family: variables.$fontFamily;
+  font-size: variables.$fontSize-title;
+  font-weight: 500;
+  @include mixins.sm {
+    font-size: variables.$fontSize-title-sm;
+  }
+}
+
+.fontSize-subtitle {
+  font-family: variables.$fontFamily;
+  font-size: variables.$fontSize-subtitle;
+  font-weight: 500;
+  @include mixins.sm {
+    font-size: variables.$fontSize-subtitle-sm;
+  }
+}
+
+.fontSize-paragraph {
+  font-family: variables.$fontFamily;
+  font-size: variables.$fontSize-paragraph;
+  @include mixins.xl {
+    font-size: 16px;
+  }
+  @include mixins.sm {
+    font-size: variables.$fontSize-paragraph-sm;
+  }
+}
+
+.fontSize-paragraph2 {
+  font-family: variables.$fontFamily;
+  font-size: variables.$fontSize-paragraph2;
+  @include mixins.sm {
+    font-size: variables.$fontSize-paragraph2-sm;
+  }
+}
+
+.fontSize-paragraph3 {
+  font-family: variables.$fontFamily;
+  font-size: variables.$fontSize-paragraph3;
+  @include mixins.xl {
+    font-size: 12px;
+  }
+  @include mixins.sm {
+    font-size: variables.$fontSize-paragraph3-sm;
+  }
+}
