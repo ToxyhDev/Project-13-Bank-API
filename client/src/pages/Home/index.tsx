@@ -1,9 +1,19 @@
 import styles from './index.module.scss'
+import stylesHeader from '../../components/Header/index.module.scss'
+import Header from '../../components/Header'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
     <>
-      <main>
+      <Header>
+        <div>
+          <Link className={stylesHeader.mainNavItem} to="/login">
+            <i className="fa fa-user-circle"></i> Sign In
+          </Link>
+        </div>
+      </Header>
+      <main className={styles.main}>
         <div className={styles.banner}>
           <section className={styles.bannerContent}>
             <h2 className="sr-only">Promoted Content</h2>
@@ -32,7 +42,7 @@ export default function Home() {
           <div className={styles.featureItem}>
             <img
               src="./src/assets/icon-money.png"
-              alt="Chat Icon"
+              alt="Check Shield Icon"
               className={styles.featureIcon}
             />
             <h3 className={styles.featureItemTitle}>
