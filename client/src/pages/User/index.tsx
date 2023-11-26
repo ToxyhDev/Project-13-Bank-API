@@ -24,7 +24,7 @@ export default function User() {
         <div>
           {/* Modifier id du lien par id user */}
           <Link className={stylesHeader.mainNavItem} to="/user/id">
-            <i className="fa fa-user-circle"></i> Tony
+            <i className="fa fa-user-circle"></i> {user?.body?.firstName}
           </Link>
           {/* <Link className={stylesHeader.mainNavItem} to="/">
             <i className="fa fa-sign-out"></i> Sign Out
@@ -39,7 +39,7 @@ export default function User() {
           <h2 className={styles.title}>
             Welcome back
             <br />
-            Tony Jarvis!
+            {`${user?.body?.firstName} ${user?.body?.lastName}!`}
           </h2>
           <button className={styles.editButton}>Edit Name</button>
         </div>
@@ -51,6 +51,32 @@ export default function User() {
             </h3>
             <p className={styles.accountAmount}>$2,082.79</p>
             <p className={styles.accountDescription}>Available Balance</p>
+          </div>
+          <div className={`${styles.accountWrapper} ${styles.cta}`}>
+            <button className={styles.transactionButton}>
+              View transactions
+            </button>
+          </div>
+        </section>
+        <section className={styles.account}>
+          <div className={styles.accountWrapper}>
+            <h3 className={styles.accountTitle}>Argent Bank Saving (x6712)</h3>
+            <p className={styles.accountAmount}>$10,928.42</p>
+            <p className={styles.accountDescription}>Available Balance</p>
+          </div>
+          <div className={`${styles.accountWrapper} ${styles.cta}`}>
+            <button className={styles.transactionButton}>
+              View transactions
+            </button>
+          </div>
+        </section>
+        <section className={styles.account}>
+          <div className={styles.accountWrapper}>
+            <h3 className={styles.accountTitle}>
+              Argent Bank Credit Card (x8349)
+            </h3>
+            <p className={styles.accountAmount}>$184.30</p>
+            <p className={styles.accountDescription}>Current Balance</p>
           </div>
           <div className={`${styles.accountWrapper} ${styles.cta}`}>
             <button className={styles.transactionButton}>
