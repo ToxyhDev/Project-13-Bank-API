@@ -5,6 +5,7 @@ import Header from '../../components/Header'
 import { useSelector } from 'react-redux'
 import { getProfileData } from '../../app/selector'
 import { useEffect } from 'react'
+import Logout from '../../components/Logout'
 
 export default function User() {
   const user = useSelector(getProfileData)
@@ -25,9 +26,12 @@ export default function User() {
           <Link className={stylesHeader.mainNavItem} to="/user/id">
             <i className="fa fa-user-circle"></i> Tony
           </Link>
-          <Link className={stylesHeader.mainNavItem} to="/">
+          {/* <Link className={stylesHeader.mainNavItem} to="/">
             <i className="fa fa-sign-out"></i> Sign Out
-          </Link>
+          </Link> */}
+          <Logout classStyle={stylesHeader.mainNavItem}>
+            <i className="fa fa-sign-out"></i> Sign Out
+          </Logout>
         </div>
       </Header>
       <main className={`${styles.main} ${styles.bgDark}`}>
