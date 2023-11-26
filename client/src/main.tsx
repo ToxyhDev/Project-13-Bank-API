@@ -5,6 +5,8 @@ import Home from './pages/Home/index.tsx'
 import User from './pages/User/index.tsx'
 import Login from './pages/Login/index.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { store } from './app/store.ts'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/user/:id',
+        path: '/:username',
         element: <User />,
       },
     ],
@@ -30,7 +32,9 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </Provider>
 )

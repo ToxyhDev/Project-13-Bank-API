@@ -1,9 +1,22 @@
 import styles from './index.module.scss'
 import stylesHeader from '../../components/Header/index.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from '../../components/Header'
+import { useSelector } from 'react-redux'
+import { getProfileData } from '../../app/selector'
+import { useEffect } from 'react'
 
 export default function User() {
+  const user = useSelector(getProfileData)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  }, [navigate, user])
+
+  console.log(user)
   return (
     <>
       <Header>
