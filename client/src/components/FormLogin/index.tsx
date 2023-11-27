@@ -6,34 +6,20 @@ import {
   useGetLoginTokenMutation,
   useGetProfilDataMutation,
 } from '../../api/formLoginApi'
-import { IUser } from '../../app/store'
 import { useNavigate } from 'react-router-dom'
-
-export interface IBodyCredentials {
-  body: ICredentials
-}
-
-export interface ICredentials {
-  email: string
-  password: string
-}
-
-export interface ITokenResult {
-  data: {
-    body: {
-      token: string
-    }
-  }
-  error: string
-}
-
-export interface IProfileResult {
-  data: IUser
-}
+import {
+  ICredentialsEmail,
+  IResponseFetch,
+  IResponseData,
+  IResponseToken,
+  IResponseProfile,
+} from '../../types'
 
 export default function FormLogin() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     const storage = localStorage.getItem('Token')
@@ -42,7 +28,7 @@ export default function FormLogin() {
     }
   }, [])
 
-  const [credentials, setCredentials] = useState<ICredentials>({
+  const [credentials, setCredentials] = useState<ICredentialsEmail>({
     email: '',
     password: '',
   })
@@ -58,12 +44,12 @@ export default function FormLogin() {
 
   const [isChecked, setIsChecked] = useState(false)
 
-  const checkHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const checkHandler = () => {
     setIsChecked(!isChecked)
   }
 
   // -> Call API
-  const [getLoginToken] = useGetLoginTokenMutation(credentials)
+  const [getLoginToken] = useGetLoginTokenMutation({ body: credentials })
 
   const [getProfileData] = useGetProfilDataMutation()
 
@@ -71,17 +57,24 @@ export default function FormLogin() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const tokenResult = await getLoginToken({ body: credentials })
+      const tokenResult: IResponseFetch<IResponseToken> = await getLoginToken({
+        body: credentials,
+      })
       console.log(tokenResult)
+
       await handleTokenResult(tokenResult)
     } catch (error) {
+      // console.log(errorMsg)
+      setErrorMsg('Problem during connection')
       dispatch(userSlice.actions.deleteToken())
       console.error('Erreur lors de la mutation', error)
     }
   }
 
   // --> Handle Token
-  const handleTokenResult = async (tokenResult: ITokenResult) => {
+  const handleTokenResult = async (
+    tokenResult: IResponseData<IResponseToken>
+  ) => {
     const { token } = tokenResult.data.body
 
     // dispatch(userSlice.actions.addUserToken(token))
@@ -100,6 +93,7 @@ export default function FormLogin() {
   const fetchUserProfile = async (token: string) => {
     try {
       dispatch(userSlice.actions.addUserToken(token))
+
       const response = await getProfileData({ token })
 
       handleProfileResult(response)
@@ -112,14 +106,18 @@ export default function FormLogin() {
   }
 
   // --> Handle Profile
-  const handleProfileResult = (profilResult: IProfileResult) => {
+  const handleProfileResult = (
+    profilResult: IResponseData<IResponseProfile>
+  ) => {
     if (profilResult.data) {
       console.log(profilResult.data)
+      setErrorMsg('')
       dispatch(userSlice.actions.addProfileData(profilResult.data))
       const { body } = profilResult.data
       // Redirect to profile page
       navigate(`/${body?.firstName}-${body?.lastName}`)
     } else if (profilResult.error) {
+      setErrorMsg('Error retrieving user profile')
       console.error(
         'Erreur lors de la récupération du profil utilisateur',
         profilResult.error
@@ -157,6 +155,7 @@ export default function FormLogin() {
       <button className={styles.signButton} type="submit">
         Sign In
       </button>
+      {errorMsg ? <p className={styles.error}>{errorMsg}</p> : ''}
     </form>
   )
 }

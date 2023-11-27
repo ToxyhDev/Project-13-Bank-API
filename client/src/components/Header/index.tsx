@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom'
 import styles from './index.module.scss'
-import { ReactNode } from 'react'
+import { IChildrenProps } from '../../types'
 
-interface IHeaderProps {
-  readonly children?: ReactNode
-}
-
-export default function Header({ children }: IHeaderProps) {
+export default function Header({ children }: Readonly<IChildrenProps>) {
   return (
     <header>
       <nav className={styles.mainNav}>

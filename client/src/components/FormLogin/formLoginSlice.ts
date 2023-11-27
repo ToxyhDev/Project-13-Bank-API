@@ -1,21 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { IProfileResult } from '.'
-
 export const userSlice = createSlice({
   name: 'user',
   initialState: {},
   reducers: {
-    addUserToken: (state, action: PayloadAction<string>) => {
+    addUserToken: (state, action: PayloadAction) => {
       state.token = action.payload
     },
-    addProfileData: (state, action: PayloadAction<IProfileResult>) => {
+    addProfileData: (state, action: PayloadAction) => {
       state.user = action.payload
     },
     deleteToken: (state) => {
       state.token = null
     },
-    updateNameProfile: (state, action: PayloadAction<string>) => {
+    updateNameProfile: (state, action: PayloadAction) => {
       state.user = action.payload
     },
   },

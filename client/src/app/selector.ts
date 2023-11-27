@@ -1,6 +1,6 @@
 // Récupére dans le state global et traite l'info
-import { IState } from './store'
+import { IStateUser } from '../types'
 
-export const getUserToken = (state: IState) => state?.user.token
+export const getUserToken = (state: IStateUser) => state?.user.token
 
-export const getProfileData = (state: IState) => state?.user.user
+export const getProfileData = (state: IStateUser) => state?.user.user

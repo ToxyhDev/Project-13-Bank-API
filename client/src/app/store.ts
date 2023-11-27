@@ -2,30 +2,9 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { userSlice } from '../components/FormLogin/formLoginSlice'
 import { api } from '../api/formLoginApi'
 import thunk from 'redux-thunk'
+import { IStateUser } from '../types'
 
-export interface IState {
-  user: IDataUser
-}
-
-export interface IDataUser {
-  token?: string
-  user?: IUser
-}
-
-export interface IUser {
-  body?: {
-    id: string
-    email: string
-    firstName: string
-    lastName: string
-    createdAt: string
-    updatedAt: string
-  }
-  message: string
-  status: number
-}
-
-const state = {
+const state: IStateUser = {
   user: {},
 }
 

@@ -4,19 +4,12 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { getUserToken } from '../../app/selector'
 import { usePutProfileNameMutation } from '../../api/formLoginApi'
 import { userSlice } from '../FormLogin/formLoginSlice'
-export interface IBodyCredentials {
-  body: ICredentials
-}
-
-export interface ICredentials {
-  firstName: string
-  lastName: string
-}
+import { ICredentialsName } from '../../types'
 
 export default function EditName() {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
-  const [credentials, setCredentials] = useState<ICredentials>({
+  const [credentials, setCredentials] = useState<ICredentialsName>({
     firstName: '',
     lastName: '',
   })
