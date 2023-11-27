@@ -32,7 +32,6 @@ const state = {
 export const store = configureStore({
   preloadedState: state,
   reducer: combineReducers({
-    // utilisé pour combiner nos reducers
     user: userSlice.reducer,
     [api.reducerPath]: api.reducer,
   }),

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { getProfileData } from '../../app/selector'
 import { useEffect } from 'react'
 import Logout from '../../components/Logout'
+import EditName from '../../components/EditName'
 
 export default function User() {
   const user = useSelector(getProfileData)
@@ -15,20 +16,19 @@ export default function User() {
     if (!user) {
       navigate('/login')
     }
+    console.log(user?.body)
   }, [navigate, user])
 
-  console.log(user)
   return (
     <>
       <Header>
         <div>
-          {/* Modifier id du lien par id user */}
-          <Link className={stylesHeader.mainNavItem} to="/user/id">
+          <Link
+            className={stylesHeader.mainNavItem}
+            to={`/${user?.body?.firstName}-${user?.body?.lastName}`}
+          >
             <i className="fa fa-user-circle"></i> {user?.body?.firstName}
           </Link>
-          {/* <Link className={stylesHeader.mainNavItem} to="/">
-            <i className="fa fa-sign-out"></i> Sign Out
-          </Link> */}
           <Logout classStyle={stylesHeader.mainNavItem}>
             <i className="fa fa-sign-out"></i> Sign Out
           </Logout>
@@ -41,7 +41,7 @@ export default function User() {
             <br />
             {`${user?.body?.firstName} ${user?.body?.lastName}!`}
           </h2>
-          <button className={styles.editButton}>Edit Name</button>
+          <EditName />
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className={styles.account}>

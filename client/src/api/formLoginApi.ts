@@ -26,7 +26,22 @@ export const api = createApi({
         },
       }),
     }),
+    putProfileName: builder.mutation({
+      query: ({ token, body }) => ({
+        url: '/user/profile',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      }),
+    }),
   }),
 })
 
-export const { useGetLoginTokenMutation, useGetProfilDataMutation } = api
+export const {
+  useGetLoginTokenMutation,
+  useGetProfilDataMutation,
+  usePutProfileNameMutation,
+} = api

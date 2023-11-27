@@ -15,5 +15,8 @@ export const userSlice = createSlice({
     deleteToken: (state) => {
       state.token = null
     },
+    updateNameProfile: (state, action: PayloadAction<string>) => {
+      state.user = action.payload
+    },
   },
 })

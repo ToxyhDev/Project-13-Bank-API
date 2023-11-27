@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { userSlice } from './formLoginSlice'
 import {
@@ -8,7 +8,6 @@ import {
 } from '../../api/formLoginApi'
 import { IUser } from '../../app/store'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
 
 export interface IBodyCredentials {
   body: ICredentials
@@ -71,7 +70,6 @@ export default function FormLogin() {
   // --> Form submit
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     try {
       const tokenResult = await getLoginToken({ body: credentials })
       console.log(tokenResult)
@@ -86,7 +84,7 @@ export default function FormLogin() {
   const handleTokenResult = async (tokenResult: ITokenResult) => {
     const { token } = tokenResult.data.body
 
-    dispatch(userSlice.actions.addUserToken(token))
+    // dispatch(userSlice.actions.addUserToken(token))
     await fetchUserProfile(token)
 
     handleLocalStorage(token)
@@ -101,6 +99,7 @@ export default function FormLogin() {
   // --> Fetch User Data
   const fetchUserProfile = async (token: string) => {
     try {
+      dispatch(userSlice.actions.addUserToken(token))
       const response = await getProfileData({ token })
 
       handleProfileResult(response)
