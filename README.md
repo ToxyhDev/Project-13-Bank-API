@@ -8,7 +8,7 @@
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
-# Project 13 - Use an API for a bank user account with React
+# 🏦 Project 13 - Use an API for a bank user account with React
 
 Here you will find **project 13** of the **“JavaScript/React application developer”** training. 
 The objective of this project is to use Redux to manage the global state of the application. 
@@ -20,7 +20,7 @@ A token authentication system is also linked with API requests to make the appli
   - [Prerequisites](#1-prerequisites)
   - [Starting the project](#2-starting-the-project)
   - [Populated Database Data](#3-populated-database-data)
-- [🔗 List of endpoints](#-api-documentation)
+- [🔗 API Documentation](#-api-documentation)
 - [🚧 Setting up ESlint for this project](#-setting-up-eslint-for-this-project)
 
 
