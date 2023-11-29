@@ -132,9 +132,9 @@ export default function FormLogin() {
       // console.log(profilResult.data)
       setErrorMsg('')
       dispatch(userSlice.actions.addProfileData(profilResult.data))
-      const { body } = profilResult.data
+      // const { body } = profilResult.data
       // Redirect to profile page
-      navigate(`/${body?.firstName}-${body?.lastName}`)
+      navigate(`/profile`)
     } else if (profilResult.error) {
       setErrorMsg('Error retrieving user profile')
       console.error(
