@@ -1,19 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IDataUser, IUser } from '../../types'
+
+const initialState: IDataUser = {
+  token: undefined,
+  user: undefined,
+}
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {},
+  initialState,
   reducers: {
-    addUserToken: (state, action: PayloadAction) => {
+    addUserToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload
     },
-    addProfileData: (state, action: PayloadAction) => {
+    addProfileData: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload
     },
     deleteToken: (state) => {
-      state.token = null
+      state.token = ''
     },
-    updateNameProfile: (state, action: PayloadAction) => {
+    updateNameProfile: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload
     },
   },

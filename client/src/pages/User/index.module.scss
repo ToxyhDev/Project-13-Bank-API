@@ -4,7 +4,7 @@
 }
 
 .bgDark {
-  background-color: #12002b;
+  background-color: global.$color-secondary;
 }
 
 .title {
@@ -12,7 +12,7 @@
   font-size: 2rem;
 }
 .header {
-  color: #fff;
+  color: global.$color-surface;
   margin-bottom: 2rem;
 }
 
@@ -21,7 +21,7 @@
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  background-color: #fff;
+  background-color: global.$color-surface;
   width: 80%;
   margin: 0 auto;
   flex-direction: column;
@@ -69,9 +69,9 @@
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
+  border-color: global.$color-primary;
+  background-color: global.$color-primary;
+  color: global.$color-surface;
 
   @include global.md {
     width: 200px;

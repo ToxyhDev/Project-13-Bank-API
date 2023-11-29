@@ -1,9 +1,11 @@
+@use '../../global';
+
 .main {
   flex: 1;
 }
 
 .bgDark {
-  background-color: #12002b;
+  background-color: global.$color-secondary;
 }
 
 .signButton {
@@ -13,14 +15,14 @@
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
+  border-color: global.$color-primary;
+  background-color: global.$color-primary;
+  color: global.$color-surface;
 }
 
 .signContent {
   box-sizing: border-box;
-  background-color: white;
+  background-color: global.$color-surface;
   width: 300px;
   margin: 0 auto;
   margin-top: 3rem;
@@ -37,10 +39,6 @@
     margin-left: 0.25rem;
   }
 }
-
-//   .input-remember label {
-//     margin-left: 0.25rem;
-//   }
 
 .inputWrapper {
   display: flex;

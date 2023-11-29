@@ -1,7 +1,6 @@
 import { IStateUser, IDataUser, IUser } from './state'
 import {
   IResponseFetch,
-  IResponseError,
   IResponseData,
   IResponseProfile,
   IResponseToken,
@@ -18,7 +17,6 @@ export {
   IDataUser,
   IUser,
   IResponseFetch,
-  IResponseError,
   IResponseData,
   IResponseProfile,
   IResponseToken,

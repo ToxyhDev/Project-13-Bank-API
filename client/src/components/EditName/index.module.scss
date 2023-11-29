@@ -1,7 +1,9 @@
+@use '../../global';
+
 .editButton {
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
+  border-color: global.$color-primary;
+  background-color: global.$color-primary;
+  color: global.$color-surface;
   font-weight: bold;
   padding: 10px;
 }
@@ -9,9 +11,9 @@
 .button {
   flex: 1;
   max-width: 150px;
-  border-color: #00bc77;
-  background-color: #fff;
-  color: #00bc77;
+  border-color: global.$color-primary;
+  background-color: global.$color-surface;
+  color: global.$color-primary;
   font-weight: bold;
   font-size: 1rem;
   padding: 10px;

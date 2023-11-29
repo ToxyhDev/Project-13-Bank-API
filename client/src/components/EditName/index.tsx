@@ -4,7 +4,12 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { getUserToken } from '../../app/selector'
 import { usePutProfileNameMutation } from '../../api/formLoginApi'
 import { userSlice } from '../FormLogin/formLoginSlice'
-import { ICredentialsName } from '../../types'
+import {
+  ICredentialsName,
+  IResponseFetch,
+  IResponseProfile,
+  IUser,
+} from '../../types'
 
 export default function EditName() {
   const dispatch = useDispatch()
@@ -16,10 +21,7 @@ export default function EditName() {
   const token = useSelector(getUserToken)
 
   // -> Call API
-  const [putProfileName] = usePutProfileNameMutation({
-    token,
-    body: credentials,
-  })
+  const [putProfileName] = usePutProfileNameMutation()
 
   // -> Form input change
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +35,13 @@ export default function EditName() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const putUsernameResult = await putProfileName({
-        token,
-        body: credentials,
-      })
-      console.log(putUsernameResult)
-      dispatch(userSlice.actions.updateNameProfile(putUsernameResult.data))
+      const putUsernameResult: IResponseFetch<IResponseProfile> =
+        await putProfileName({
+          token,
+          body: credentials,
+        })
+      const updateSlice = putUsernameResult.data as IUser
+      dispatch(userSlice.actions.updateNameProfile(updateSlice))
       setIsOpen(false)
     } catch (error) {
       console.error("Erreur lors de l'envoi des données", error)

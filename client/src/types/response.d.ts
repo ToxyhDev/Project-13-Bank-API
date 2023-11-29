@@ -1,7 +1,13 @@
-export type IResponseFetch<T> = IResponseData<T> | IResponseError
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { SerializedError } from '@reduxjs/toolkit'
 
-export interface IResponseError {
-  error: string
+export interface IResponseFetch<T> {
+  data?: {
+    body: T
+    message: string
+    status: number
+  }
+  error?: FetchBaseQueryError | SerializedError
 }
 
 export interface IResponseData<T> {

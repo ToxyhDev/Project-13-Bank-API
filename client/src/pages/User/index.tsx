@@ -16,7 +16,7 @@ export default function User() {
     if (!user) {
       navigate('/login')
     }
-    console.log(user?.body)
+    // console.log(user?.body)
   }, [navigate, user])
 
   return (

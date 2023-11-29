@@ -19,7 +19,7 @@ export default function FormLogin() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [errorMsg, setErrorMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState<string>('')
 
   useEffect(() => {
     const storage = localStorage.getItem('Token')
@@ -42,32 +42,51 @@ export default function FormLogin() {
     }))
   }
 
-  const [isChecked, setIsChecked] = useState(false)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const checkHandler = () => {
     setIsChecked(!isChecked)
   }
 
   // -> Call API
-  const [getLoginToken] = useGetLoginTokenMutation({ body: credentials })
+  const [getLoginToken] = useGetLoginTokenMutation()
 
   const [getProfileData] = useGetProfilDataMutation()
 
   // --> Form submit
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-      const tokenResult: IResponseFetch<IResponseToken> = await getLoginToken({
-        body: credentials,
-      })
-      console.log(tokenResult)
+    const tokenResult: IResponseFetch<IResponseToken> = await getLoginToken({
+      body: credentials,
+    })
 
-      await handleTokenResult(tokenResult)
-    } catch (error) {
-      // console.log(errorMsg)
-      setErrorMsg('Problem during connection')
+    // console.log(tokenResult.error)
+    if (tokenResult?.error && 'error' in tokenResult.error) {
+      const { status, error } = tokenResult.error
+      if (status === 'FETCH_ERROR') {
+        setErrorMsg(error)
+      }
+    }
+    if (tokenResult?.error && 'status' in tokenResult.error) {
       dispatch(userSlice.actions.deleteToken())
-      console.error('Erreur lors de la mutation', error)
+
+      const { status } = tokenResult.error
+
+      if (
+        status === 400 &&
+        'data' in tokenResult.error &&
+        typeof tokenResult.error.data === 'object' &&
+        tokenResult.error.data &&
+        'message' in tokenResult.error.data &&
+        typeof tokenResult.error.data.message === 'string'
+      ) {
+        const { message } = tokenResult.error.data
+        setErrorMsg(message)
+      }
+    } else if (tokenResult?.data) {
+      await handleTokenResult(tokenResult as IResponseData<IResponseToken>)
+    } else {
+      console.error('Erreur lors de la mutation')
     }
   }
 
@@ -76,8 +95,6 @@ export default function FormLogin() {
     tokenResult: IResponseData<IResponseToken>
   ) => {
     const { token } = tokenResult.data.body
-
-    // dispatch(userSlice.actions.addUserToken(token))
     await fetchUserProfile(token)
 
     handleLocalStorage(token)
@@ -94,7 +111,9 @@ export default function FormLogin() {
     try {
       dispatch(userSlice.actions.addUserToken(token))
 
-      const response = await getProfileData({ token })
+      const response: IResponseFetch<IResponseProfile> = await getProfileData({
+        token,
+      })
 
       handleProfileResult(response)
     } catch (error) {
@@ -107,10 +126,10 @@ export default function FormLogin() {
 
   // --> Handle Profile
   const handleProfileResult = (
-    profilResult: IResponseData<IResponseProfile>
+    profilResult: IResponseFetch<IResponseProfile>
   ) => {
     if (profilResult.data) {
-      console.log(profilResult.data)
+      // console.log(profilResult.data)
       setErrorMsg('')
       dispatch(userSlice.actions.addProfileData(profilResult.data))
       const { body } = profilResult.data
