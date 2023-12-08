@@ -100,7 +100,7 @@ Once you run the `populate-db` script, you should have two users in your databas
 To learn more about how the API works, once you have started your local environment, you can visit: http://localhost:3001/api-docs
 
 > [!NOTE]  
-> It was asked to propose endpoint suggestions for the transaction part of the application, you can visit : http://localhost:3001/api-docs2
+> A suggested transaction API is available in the swagger2.yml file.
 
 ## 🚧 Setting up ESlint for this project
 

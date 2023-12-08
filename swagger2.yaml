@@ -110,7 +110,7 @@ paths:
     put:
       tags:
         - Transactions
-      summary: Modify details transaction by account and transaction ID
+      summary: Modify or Delete details transaction by account and transaction ID
       description: API for modify details about a transaction.
       parameters:
         - in: header
@@ -144,38 +144,6 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-
-    delete:
-      tags:
-        - Transactions
-      summary: Delete details transaction by account and transaction ID
-      description: API for delete details about a transaction.
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: path
-          name: accountId
-          type: integer
-          required: true
-          description: The ID of the account.
-        - in: path
-          name: transactionId
-          type: integer
-          required: true
-          description: The ID of the transaction to delete.
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transaction Response Successfully
-          schema:
-            $ref: '#/definitions/TransactionResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -192,17 +160,19 @@ definitions:
       body:
         type: object
         properties:
-          transaction1:
-            type: object
-            properties:
-              transactionId:
-                type: number
-              date:
-                type: string
-              description:
-                type: string
-              amount:
-                type: number
+          transactions:
+            type: array
+            items: 
+              type: object
+              properties:
+                id:
+                  type: number
+                date:
+                  type: string
+                description:
+                  type: string
+                amount:
+                  type: number
   TransactionInfo:
     properties:
       category:
@@ -235,6 +205,6 @@ definitions:
       body:
         type: object
         properties:
-          transactionId:
+          id:
             type: number
 
